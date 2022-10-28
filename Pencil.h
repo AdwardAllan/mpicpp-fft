@@ -63,8 +63,8 @@ inline vector<MPI_Datatype> subarraytypes(MPI_Comm comm, vector<int> shape, int 
 		substarts[axis] = s;
 		MPI_Datatype newtype{};
 		// cout<<"N, size, i : "<<N<<" "<<size<<" "<<i<<endl;
-		cout<<"here subtypes: shape, axis, subshape sizes, subsizes, substarts"<<":"
-		<<shape[0]<<" "<<shape[1]<<" @ "<<axis<<" ; "<<subshape[0]<<" "<<subshape[1]<<" ; "<<subsizes[0]<<" "<<subsizes[1]<<substarts[0]<<" "<<substarts[1]<<endl;
+		// cout<<"here subtypes: shape, axis, subshape sizes, subsizes, substarts"<<":"
+		// <<shape[0]<<" "<<shape[1]<<" @ "<<axis<<" ; "<<subshape[0]<<" "<<subshape[1]<<" ; "<<subsizes[0]<<" "<<subsizes[1]<<substarts[0]<<" "<<substarts[1]<<endl;
 		MPI_Type_create_subarray(int(shape.size()), shape.data(), subsizes.data(), substarts.data(),MPI_ORDER_C, dtype, &newtype);
 		MPI_Type_commit(&newtype);
 		datatypes.push_back(newtype);
@@ -263,11 +263,11 @@ public:
 		vector<int> shape_local  = this->subshape;
 		shape_local[pencil.axis]       = this->shape[pencil.axis];
 		
-		cout<<"transfer info : "<<shape_local[0]<<" "<<shape_local[1]<<"--"
-		<<" " <<this->subshape[0]<<" " <<this->subshape[1]<<" " <<this->axis<<"--"
-		<<" " <<pencil.subshape[0]<<" " <<pencil.subshape[1]<<" " <<pencil.axis<<" ";
-		for (auto i:this->subcomm) {int tmp=0;MPI_Comm_size(i,&tmp);cout<<tmp;}
-		cout<<endl;
+		// cout<<"transfer info : "<<shape_local[0]<<" "<<shape_local[1]<<"--"
+		// <<" " <<this->subshape[0]<<" " <<this->subshape[1]<<" " <<this->axis<<"--"
+		// <<" " <<pencil.subshape[0]<<" " <<pencil.subshape[1]<<" " <<pencil.axis<<" ";
+		// for (auto i:this->subcomm) {int tmp=0;MPI_Comm_size(i,&tmp);cout<<tmp;}
+		// cout<<endl;
 		Transfer ptr = Transfer(comm_local, shape_local, dtype, this->subshape, this->axis, pencil.subshape, pencil.axis);
 		return ptr;
 	}
